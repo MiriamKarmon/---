@@ -64,7 +64,7 @@ export function ComparisonGame({ id }: { id: ComparisonId }) {
         <p className="file-caption">בטלפון אפשר גם לגעת במילה ואז בתא. להסרת מילה מתא לחצו על × שלידה. בחרו קטגוריה כדי לראות את מחסן המילים שלה.</p>
         {id === 'offerings' && <p className="file-caption">הערה למבחן: "זכר" בקרבן עולה מתייחס לעולה מן הבהמה, ולא לעולה מן העוף.</p>}
         <div className="comparison-bank" aria-label="מחסן מילים לטבלה">
-            <div className="comparison-tabs">{pack.columns.map((c, i) => <button key={c} className={i === bankColumn ? 'is-active' : ''} onClick={() => {setBankColumn(i);setChosen(null);}}>{c}</button>)}</div>
+            {/* <div className="comparison-tabs">{pack.columns.map((c, i) => <button key={c} className={i === bankColumn ? 'is-active' : ''} onClick={() => {setBankColumn(i);setChosen(null);}}>{c}</button>)}</div>*/}
             <div className="comparison-words">{words.map(word => <button key={word} className={`table-word${chosen === word ? ' is-selected' : ''}`} aria-pressed={chosen === word}
                 onPointerDown={e => { if(e.button !== 0) return; e.currentTarget.setPointerCapture(e.pointerId);start.current = {word,x:e.clientX,y:e.clientY,moved:false}; }}
                 onPointerMove={e => {const s=start.current;if(!s)return;if(Math.hypot(e.clientX-s.x,e.clientY-s.y)>7)s.moved=true;if(s.moved){setGhost({word:s.word,x:e.clientX,y:e.clientY});}}}
