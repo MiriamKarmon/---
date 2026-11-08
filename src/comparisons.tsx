@@ -50,7 +50,7 @@ export function ComparisonGame({ id }: { id: ComparisonId }) {
     const [chosen, setChosen] = useState<string | null>(null);
     const [ghost, setGhost] = useState<{ word: string; x: number; y: number } | null>(null);
     const start = useRef<{ word: string; x: number; y: number; moved: boolean } | null>(null);
-    const words = [...new Set(pack.rows.flatMap(r => r.cells[bankColumn] ?? []).concat(EXTRA_BANK))].sort((a,b)=>a.localeCompare(b,'he'));
+    const words = [...new Set(pack.rows.flatMap(r => r.cells.flatMap(cell => cell ?? [])).concat(EXTRA_BANK))].sort((a,b)=>a.localeCompare(b,'he'));
     const put = (key: string, word: string) => {
         setValues(prev => ({ ...prev, [key]: (prev[key] ?? []).includes(word) ? prev[key] : [...(prev[key] ?? []), word] }));
         setChecked(false);
