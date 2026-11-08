@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Callout, Caption, Closing, FileCard, Group, Header, Paragraph, Photos, useLocalState } from './ui';
+import React, { useState, useEffect } from 'react';
+import { Callout, Caption, Closing, FileCard, Group, Header, Paragraph, Photos } from './ui';
 import { vayikraPack as pack, TYPE_LABELS, qPoints, type Q } from './packs';
 import hero from './photos/mishkan-hero.png';
 
@@ -22,9 +22,8 @@ function unlockedCostumes(points: number) { return COSTUMES.filter(c => points >
 type Screen = 'home' | 'map' | 'level' | 'done';
 
 export function App() {
-    const [totalPoints, setTotalPoints, pointsSaved] = useLocalState<number>('torah-game.points.v2', 0);
-    const [stars, setStars, starsSaved] = useLocalState<Record<string, number>>('torah-game.stars.v2', {});
-    const storageReady = pointsSaved.ready && starsSaved.ready;
+    const [totalPoints, setTotalPoints] = useState<number>(0);
+    const [stars, setStars] = useState<Record<string, number>>({});
 
     const [screen, setScreen] = useState<Screen>('home');
     const [level, setLevel] = useState(1);
@@ -39,6 +38,34 @@ export function App() {
     const [correctCount, setCorrectCount] = useState(0);
     const [earnedPoints, setEarnedPoints] = useState(0);
     const [doneInfo, setDoneInfo] = useState<{ stars: number; points: number; newCostume: string | null } | null>(null);
+
+    const resetGame = () => {
+        setTotalPoints(0);
+        setStars({});
+        setScreen('home');
+        setLevel(1);
+        setQuestions([]);
+        setQIndex(0);
+        setPicked(null);
+        setClozeSel(null);
+        setTableSel([]);
+        setPick2Sel([]);
+        setSubmitted(false);
+        setWasCorrect(false);
+        setCorrectCount(0);
+        setEarnedPoints(0);
+        setDoneInfo(null);
+    };
+    useEffect(() => {
+        const onPageHide = () => resetGame();
+        const onPageShow = (e: PageTransitionEvent) => { if (e.persisted) resetGame(); };
+        window.addEventListener('pagehide', onPageHide);
+        window.addEventListener('pageshow', onPageShow);
+        return () => {
+            window.removeEventListener('pagehide', onPageHide);
+            window.removeEventListener('pageshow', onPageShow);
+        };
+    }, []);
 
     const starKey = (lv: number) => `${pack.id}:${lv}`;
     const startLevel = (lv: number) => {
@@ -111,10 +138,8 @@ export function App() {
             const afterPoints = totalPoints + earnedPoints;
             const after = unlockedCostumes(afterPoints);
             const newCostume = after.length > before ? after[after.length - 1].name : null;
-            if (storageReady) {
-                setTotalPoints(afterPoints);
-                if (newStars > (stars[starKey(level)] || 0)) setStars({ ...stars, [starKey(level)]: newStars });
-            }
+            setTotalPoints(afterPoints);
+            if (newStars > (stars[starKey(level)] || 0)) setStars({ ...stars, [starKey(level)]: newStars });
             setDoneInfo({ stars: newStars, points: earnedPoints, newCostume });
             setScreen('done');
         }
@@ -138,13 +163,13 @@ export function App() {
                 <Photos label={pack.worldName} items={[{ src: hero, alt: 'איור של שביל אבנים במדבר המוביל אל המשכן' }]} />
                 <Caption>איור להמחשת האווירה בלבד.</Caption>
                 <Group label={pack.worldName} heading>
-                    <Paragraph>{pack.levels.length} שלבים שמכסים את כל שאלות הדף: עולה ומנחה, שלמים, חטאת וסוגיה, עולה ויורד, האשמות ושלבי ההקרבה - כדי להכיר את ההבדלים בין כל הקרבנות.</Paragraph>
-                    <button className="file-button" disabled={!storageReady} onClick={() => setScreen('map')}>מתחילים לשחק</button>
-                    <Caption>{pointsSaved.message || starsSaved.message}</Caption>
+                    <Paragraph>{pack.levels.length} שלבים עם 15 שאלות בכל שלב, שמכסות את כל שאלות הדף: עולה ומנחה, שלמים, חטאת וסוגיה, עולה ויורד, האשמות ושלבי ההקרבה - כדי להכיר את ההבדלים בין כל הקרבנות.</Paragraph>
+                    <button className="file-button" onClick={() => setScreen('map')}>מתחילים לשחק</button>
+
                 </Group>
                 <Group label="הדמות שלך">
                     <div className="avatar-row">{avatar}<span className="points-pill">⭐ {totalPoints} נקודות</span></div>
-                    <Paragraph>צוברים נקודות על תשובות נכונות ופותחים תלבושות: {COSTUMES.map(c => `${c.name} ב-${c.points} נקודות`).join(', ')}. שאלות רשות נותנות בונוס כפול.</Paragraph>
+                    <Paragraph>צוברים נקודות על תשובות נכונות ופותחים תלבושות: {COSTUMES.map(c => `${c.name} ב-${c.points} נקודות`).join(', ')}. שאלות רשות עם תשובה נכונה נותנות בונוס כפול; שאלת הרגש נותנת בונוס השתתפות.</Paragraph>
                 </Group>
                 <Group label="איך הדמו עובד">
                     <Callout title="דף לימוד נכנס, משחק יוצא" tone="success">הזרימה בדמו: שולחים דף למידה בצ'אט, והמשחק מתעדכן בשאלות שנבנות מהדף - כמו שהמשחק הזה נבנה מדף הקרבנות שלך.</Callout>
@@ -221,6 +246,7 @@ export function App() {
                     </>}
 
                     {current.type === 'cloze' && <>
+                        <Caption>מחסן מילים: בחרי מילה להשלמת המשפט ואז לחצי בדיקה.</Caption>
                         <div className="bank-row">
                             {current.bank.map(word => {
                                 let cls = 'bank-chip';
@@ -257,7 +283,7 @@ export function App() {
                             ? <Callout title={`תודה ששיתפת! +${qPoints(current)} נקודות`} tone="success">{current.explain}</Callout>
                             : wasCorrect
                             ? <Callout title={`נכון! +${qPoints(current)} נקודות`} tone="success">{current.explain}</Callout>
-                            : <Callout title={`לא הפעם - התשובה הנכונה: ${current.type === 'tf' ? (current.answer ? 'נכון' : 'לא נכון') : current.type === 'table' ? current.rows.map((r, i) => `${r} - ${current.cols[current.correct[i]]}`).join(', ') : current.type === 'pick2' ? `כל 2 מבין: ${current.answers.join(', ')}` : (current.type === 'reflect' ? '' : current.answer)}`} tone="warning">{current.explain}</Callout>}
+                            : <Callout title={`לא הפעם - התשובה הנכונה: ${current.type === 'tf' ? (current.answer ? 'נכון' : 'לא נכון') : current.type === 'table' ? current.rows.map((r, i) => `${r} - ${current.cols[current.correct[i]]}`).join(', ') : current.type === 'pick2' ? `כל 2 מבין: ${current.answers.join(', ')}` : current.answer}`} tone="warning">{current.explain}</Callout>}
                         <button className="file-button" onClick={next}>{qIndex + 1 < questions.length ? 'לשאלה הבאה' : 'סיום השלב'}</button>
                     </>}
                 </Group>
@@ -278,7 +304,8 @@ export function App() {
                 </Group>
             </>}
 
-            <Closing>דמו פרטי - ההתקדמות נשמרת רק במכשיר הזה. רוצים משחק מדף אחר? שולחים דף נוסף בצ'אט.</Closing>
+            <button className="file-button is-compact reset-game" data-variant="secondary" onClick={resetGame}>יציאה ואיפוס</button>
+            <Closing>הנקודות וההתקדמות זמניות בלבד. יציאה ואיפוס, רענון או סגירת המשחק מתחילים משחק חדש מ-0. מעבר למפה אינו מאפס. לשחקן הבא באותו מסך לחצו יציאה ואיפוס.</Closing>
         </FileCard>
     </div>;
 }
