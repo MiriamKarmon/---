@@ -13,9 +13,9 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 const COSTUMES = [
-    { points: 30, emoji: '🎩', name: 'כובע קוסם' },
-    { points: 80, emoji: '🦺', name: 'חגורת הרפתקן' },
-    { points: 150, emoji: '👑', name: 'כתר זהב' },
+    { points: 30, emoji: '馃帺', name: '讻讜讘注 拽讜住诐' },
+    { points: 80, emoji: '馃', name: '讞讙讜专转 讛专驻转拽谉' },
+    { points: 150, emoji: '馃憫', name: '讻转专 讝讛讘' },
 ];
 function unlockedCostumes(points: number) { return COSTUMES.filter(c => points >= c.points); }
 
@@ -76,7 +76,7 @@ export function App() {
         if (submitted || !current) return;
         setPicked(choice);
         const correct = current.type === 'reflect' ? true
-            : current.type === 'tf' ? (choice === 'נכון') === current.answer
+            : current.type === 'tf' ? (choice === '谞讻讜谉') === current.answer
             : current.type === 'mc' ? choice === current.answer
             : current.type === 'odd' ? choice === current.answer
             : false;
@@ -121,61 +121,61 @@ export function App() {
     };
 
     const costumeBadges = unlockedCostumes(totalPoints);
-    const avatar = <span className="avatar" aria-label="הדמות שלך">
-        <span className="avatar-face">🧒</span>
+    const avatar = <span className="avatar" aria-label="讛讚诪讜转 砖诇讱">
+        <span className="avatar-face">馃</span>
         {costumeBadges.map(c => <span key={c.name} className="avatar-item" title={c.name}>{c.emoji}</span>)}
     </span>;
 
     return <div dir="rtl" lang="he">
         <FileCard>
             <Header
-                title="פרשת ויקרא: משחק חזרה"
-                fact="דמו ראשון, נבנה מדף הלימוד ששלחת"
-                intro="כל השאלות כאן נבנו מדף החזרה על פרשת ויקרא ששלחת בצ'אט, בסוגי התרגילים שבדף: שאלות אמריקאיות, נכון או לא נכון, הקפת יוצא דופן, השלמה עם מחסן מילים, טבלת השוואה ושאלות רשות לבונוס. עוברים שלבים בעולם הקרבנות, צוברים נקודות ופותחים תלבושות - וכל תשובה מלווה בהסבר מהחומר."
+                title="驻专砖转 讜讬拽专讗: 诪砖讞拽 讞讝专讛"
+                fact="讚诪讜 专讗砖讜谉, 谞讘谞讛 诪讚祝 讛诇讬诪讜讚 砖砖诇讞转"
+                intro="讻诇 讛砖讗诇讜转 讻讗谉 谞讘谞讜 诪讚祝 讛讞讝专讛 注诇 驻专砖转 讜讬拽专讗 砖砖诇讞转 讘爪'讗讟, 讘住讜讙讬 讛转专讙讬诇讬诐 砖讘讚祝: 砖讗诇讜转 讗诪专讬拽讗讬讜转, 谞讻讜谉 讗讜 诇讗 谞讻讜谉, 讛拽驻转 讬讜爪讗 讚讜驻谉, 讛砖诇诪讛 注诐 诪讞住谉 诪讬诇讬诐, 讟讘诇转 讛砖讜讜讗讛 讜砖讗诇讜转 专砖讜转 诇讘讜谞讜住. 注讜讘专讬诐 砖诇讘讬诐 讘注讜诇诐 讛拽专讘谞讜转, 爪讜讘专讬诐 谞拽讜讚讜转 讜驻讜转讞讬诐 转诇讘讜砖讜转 - 讜讻诇 转砖讜讘讛 诪诇讜讜讛 讘讛住讘专 诪讛讞讜诪专."
             />
 
             {screen === 'home' && <>
-                <Photos label={pack.worldName} items={[{ src: hero, alt: 'איור של שביל אבנים במדבר המוביל אל המשכן' }]} />
-                <Caption>איור להמחשת האווירה בלבד.</Caption>
+                <Photos label={pack.worldName} items={[{ src: hero, alt: '讗讬讜专 砖诇 砖讘讬诇 讗讘谞讬诐 讘诪讚讘专 讛诪讜讘讬诇 讗诇 讛诪砖讻谉' }]} />
+                <Caption>讗讬讜专 诇讛诪讞砖转 讛讗讜讜讬专讛 讘诇讘讚.</Caption>
                 <Group label={pack.worldName} heading>
-                    <Paragraph>{pack.levels.length} שלבים שמכסים את כל שאלות הדף: עולה ומנחה, שלמים, חטאת וסוגיה, עולה ויורד, האשמות ושלבי ההקרבה - כדי להכיר את ההבדלים בין כל הקרבנות.</Paragraph>
-                    <button className="file-button" disabled={!storageReady} onClick={() => setScreen('map')}>מתחילים לשחק</button>
+                    <Paragraph>{pack.levels.length} 砖诇讘讬诐 砖诪讻住讬诐 讗转 讻诇 砖讗诇讜转 讛讚祝: 注讜诇讛 讜诪谞讞讛, 砖诇诪讬诐, 讞讟讗转 讜住讜讙讬讛, 注讜诇讛 讜讬讜专讚, 讛讗砖诪讜转 讜砖诇讘讬 讛讛拽专讘讛 - 讻讚讬 诇讛讻讬专 讗转 讛讛讘讚诇讬诐 讘讬谉 讻诇 讛拽专讘谞讜转.</Paragraph>
+                    <button className="file-button" disabled={!storageReady} onClick={() => setScreen('map')}>诪转讞讬诇讬诐 诇砖讞拽</button>
                     <Caption>{pointsSaved.message || starsSaved.message}</Caption>
                 </Group>
-                <Group label="הדמות שלך">
-                    <div className="avatar-row">{avatar}<span className="points-pill">⭐ {totalPoints} נקודות</span></div>
-                    <Paragraph>צוברים נקודות על תשובות נכונות ופותחים תלבושות: {COSTUMES.map(c => `${c.name} ב-${c.points} נקודות`).join(', ')}. שאלות רשות נותנות בונוס כפול.</Paragraph>
+                <Group label="讛讚诪讜转 砖诇讱">
+                    <div className="avatar-row">{avatar}<span className="points-pill">猸?{totalPoints} 谞拽讜讚讜转</span></div>
+                    <Paragraph>爪讜讘专讬诐 谞拽讜讚讜转 注诇 转砖讜讘讜转 谞讻讜谞讜转 讜驻讜转讞讬诐 转诇讘讜砖讜转: {COSTUMES.map(c => `${c.name} 讘-${c.points} 谞拽讜讚讜转`).join(', ')}. 砖讗诇讜转 专砖讜转 谞讜转谞讜转 讘讜谞讜住 讻驻讜诇.</Paragraph>
                 </Group>
-                <Group label="איך הדמו עובד">
-                    <Callout title="דף לימוד נכנס, משחק יוצא" tone="success">הזרימה בדמו: שולחים דף למידה בצ'אט, והמשחק מתעדכן בשאלות שנבנות מהדף - כמו שהמשחק הזה נבנה מדף הקרבנות שלך.</Callout>
-                    <Callout title="מה עוד לא בדמו" tone="warning">העלאת דף מתוך המשחק עצמו והפקת שאלות אוטומטית עוד לא מיושמות כאן. גם ההתאמה המלאה לגילאי 3–17 היא היעד להמשך - הדמו הזה מותאם לחומר הספציפי ששלחת.</Callout>
-                    <Paragraph>בתוכנית המלאה: חומרי לימוד מהמורים, חשבון מהיסוד עד מתקדם וחשיבה, סרטוני הסבר, עולמות נוספים עם משחקים שונים, רמות ועוד תלבושות.</Paragraph>
+                <Group label="讗讬讱 讛讚诪讜 注讜讘讚">
+                    <Callout title="讚祝 诇讬诪讜讚 谞讻谞住, 诪砖讞拽 讬讜爪讗" tone="success">讛讝专讬诪讛 讘讚诪讜: 砖讜诇讞讬诐 讚祝 诇诪讬讚讛 讘爪'讗讟, 讜讛诪砖讞拽 诪转注讚讻谉 讘砖讗诇讜转 砖谞讘谞讜转 诪讛讚祝 - 讻诪讜 砖讛诪砖讞拽 讛讝讛 谞讘谞讛 诪讚祝 讛拽专讘谞讜转 砖诇讱.</Callout>
+                    <Callout title="诪讛 注讜讚 诇讗 讘讚诪讜" tone="warning">讛注诇讗转 讚祝 诪转讜讱 讛诪砖讞拽 注爪诪讜 讜讛驻拽转 砖讗诇讜转 讗讜讟讜诪讟讬转 注讜讚 诇讗 诪讬讜砖诪讜转 讻讗谉. 讙诐 讛讛转讗诪讛 讛诪诇讗讛 诇讙讬诇讗讬 3鈥?7 讛讬讗 讛讬注讚 诇讛诪砖讱 - 讛讚诪讜 讛讝讛 诪讜转讗诐 诇讞讜诪专 讛住驻爪讬驻讬 砖砖诇讞转.</Callout>
+                    <Paragraph>讘转讜讻谞讬转 讛诪诇讗讛: 讞讜诪专讬 诇讬诪讜讚 诪讛诪讜专讬诐, 讞砖讘讜谉 诪讛讬住讜讚 注讚 诪转拽讚诐 讜讞砖讬讘讛, 住专讟讜谞讬 讛住讘专, 注讜诇诪讜转 谞讜住驻讬诐 注诐 诪砖讞拽讬诐 砖讜谞讬诐, 专诪讜转 讜注讜讚 转诇讘讜砖讜转.</Paragraph>
                 </Group>
             </>}
 
             {screen === 'map' && <>
                 <Group label={pack.worldName} heading>
-                    <div className="avatar-row">{avatar}<span className="points-pill">⭐ {totalPoints} נקודות</span></div>
+                    <div className="avatar-row">{avatar}<span className="points-pill">猸?{totalPoints} 谞拽讜讚讜转</span></div>
                     <div className="level-path">
                         {pack.levels.map(lv => {
                             const earned = stars[starKey(lv.id)] || 0;
                             const locked = lv.id > 1 && !(stars[starKey(lv.id - 1)] > 0);
                             return <button key={lv.id} className={`level-node${locked ? ' is-locked' : ''}`} disabled={locked}
                                 onClick={() => startLevel(lv.id)}>
-                                <span className="level-icon">{locked ? '🔒' : lv.icon}</span>
+                                <span className="level-icon">{locked ? '馃敀' : lv.icon}</span>
                                 <span className="level-name">{lv.name}</span>
-                                <span className="level-stars">{'★'.repeat(earned)}{'☆'.repeat(3 - earned)}</span>
+                                <span className="level-stars">{'鈽?.repeat(earned)}{'鈽?.repeat(3 - earned)}</span>
                             </button>;
                         })}
                     </div>
-                    <button className="file-button is-compact" data-variant="secondary" onClick={() => setScreen('home')}>חזרה</button>
+                    <button className="file-button is-compact" data-variant="secondary" onClick={() => setScreen('home')}>讞讝专讛</button>
                 </Group>
             </>}
 
             {screen === 'level' && current && <>
-                <Group label={`${pack.levels[level - 1].name} - שאלה ${qIndex + 1} מתוך ${questions.length}`} heading>
+                <Group label={`${pack.levels[level - 1].name} - 砖讗诇讛 ${qIndex + 1} 诪转讜讱 ${questions.length}`} heading>
                     <div className="q-progress"><div className="q-progress-fill" style={{ width: `${(qIndex / questions.length) * 100}%` }} /></div>
-                    <p className="q-type-label">{current.type === 'reflect' ? `שאלת רשות - בונוס השתתפות +${qPoints(current)}` : current.bonus ? `שאלת רשות - בונוס +${qPoints(current)}` : TYPE_LABELS[current.type]}</p>
+                    <p className="q-type-label">{current.type === 'reflect' ? `砖讗诇转 专砖讜转 - 讘讜谞讜住 讛砖转转驻讜转 +${qPoints(current)}` : current.bonus ? `砖讗诇转 专砖讜转 - 讘讜谞讜住 +${qPoints(current)}` : TYPE_LABELS[current.type]}</p>
 
                     {current.type === 'cloze'
                         ? <p className="q-text">{current.before} <span className={`cloze-blank${clozeSel ? ' is-filled' : ''}`}>{clozeSel ?? '________'}</span> {current.after}</p>
@@ -194,10 +194,10 @@ export function App() {
                     </div>}
 
                     {current.type === 'tf' && <div className="tf-row">
-                        {(['נכון', 'לא נכון'] as const).map(label => {
+                        {(['谞讻讜谉', '诇讗 谞讻讜谉'] as const).map(label => {
                             let cls = 'choice-button';
                             if (submitted) {
-                                if ((label === 'נכון') === current.answer) cls += ' is-correct';
+                                if ((label === '谞讻讜谉') === current.answer) cls += ' is-correct';
                                 else if (label === picked) cls += ' is-wrong';
                             }
                             return <button key={label} className={cls} disabled={submitted} onClick={() => answerDirect(label)}>{label}</button>;
@@ -217,7 +217,7 @@ export function App() {
                                     onClick={() => setPick2Sel(sel => sel.includes(opt) ? sel.filter(x => x !== opt) : sel.length < 2 ? [...sel, opt] : sel)}>{opt}</button>;
                             })}
                         </div>
-                        {!submitted && <button className="file-button" disabled={pick2Sel.length !== 2} onClick={checkPick2}>בדיקה</button>}
+                        {!submitted && <button className="file-button" disabled={pick2Sel.length !== 2} onClick={checkPick2}>讘讚讬拽讛</button>}
                     </>}
 
                     {current.type === 'cloze' && <>
@@ -230,7 +230,7 @@ export function App() {
                                 return <button key={word} className={cls} disabled={submitted} onClick={() => setClozeSel(word)}>{word}</button>;
                             })}
                         </div>
-                        {!submitted && <button className="file-button" disabled={!clozeSel} onClick={checkCloze}>בדיקה</button>}
+                        {!submitted && <button className="file-button" disabled={!clozeSel} onClick={checkCloze}>讘讚讬拽讛</button>}
                     </>}
 
                     {current.type === 'table' && <>
@@ -245,40 +245,40 @@ export function App() {
                                     if (submitted && tableSel[ri] !== ci && ci === current.correct[ri]) cls += ' is-correct';
                                     return <button key={col} className={cls} disabled={submitted}
                                         onClick={() => setTableSel(sel => current.rows.map((_, i) => i === ri ? ci : (sel[i] ?? null)))}
-                                        aria-label={`${row}: ${col}`}>{tableSel[ri] === ci ? '✓' : ''}</button>;
+                                        aria-label={`${row}: ${col}`}>{tableSel[ri] === ci ? '鉁? : ''}</button>;
                                 })}
                             </div>)}
                         </div>
-                        {!submitted && <button className="file-button" disabled={tableSel.length === 0 || tableSel.some(s => s === null)} onClick={checkTable}>בדיקה</button>}
+                        {!submitted && <button className="file-button" disabled={tableSel.length === 0 || tableSel.some(s => s === null)} onClick={checkTable}>讘讚讬拽讛</button>}
                     </>}
 
                     {submitted && <>
                         {current.type === 'reflect'
-                            ? <Callout title={`תודה ששיתפת! +${qPoints(current)} נקודות`} tone="success">{current.explain}</Callout>
+                            ? <Callout title={`转讜讚讛 砖砖讬转驻转! +${qPoints(current)} 谞拽讜讚讜转`} tone="success">{current.explain}</Callout>
                             : wasCorrect
-                            ? <Callout title={`נכון! +${qPoints(current)} נקודות`} tone="success">{current.explain}</Callout>
-                            : <Callout title={`לא הפעם - התשובה הנכונה: ${current.type === 'tf' ? (current.answer ? 'נכון' : 'לא נכון') : current.type === 'table' ? current.rows.map((r, i) => `${r} - ${current.cols[current.correct[i]]}`).join(', ') : current.type === 'pick2' ? `כל 2 מבין: ${current.answers.join(', ')}` : (current.type === 'reflect' ? '' : current.answer)}`} tone="warning">{current.explain}</Callout>}
-                        <button className="file-button" onClick={next}>{qIndex + 1 < questions.length ? 'לשאלה הבאה' : 'סיום השלב'}</button>
+                            ? <Callout title={`谞讻讜谉! +${qPoints(current)} 谞拽讜讚讜转`} tone="success">{current.explain}</Callout>
+                            : <Callout title={`诇讗 讛驻注诐 - 讛转砖讜讘讛 讛谞讻讜谞讛: ${current.type === 'tf' ? (current.answer ? '谞讻讜谉' : '诇讗 谞讻讜谉') : current.type === 'table' ? current.rows.map((r, i) => `${r} - ${current.cols[current.correct[i]]}`).join(', ') : current.type === 'pick2' ? `讻诇 2 诪讘讬谉: ${current.answers.join(', ')}` : (current.type === 'reflect' ? '' : current.answer)}`} tone="warning">{current.explain}</Callout>}
+                        <button className="file-button" onClick={next}>{qIndex + 1 < questions.length ? '诇砖讗诇讛 讛讘讗讛' : '住讬讜诐 讛砖诇讘'}</button>
                     </>}
                 </Group>
             </>}
 
             {screen === 'done' && doneInfo && <>
-                <Group label={`${pack.levels[level - 1].name} - סוף השלב`} heading>
-                    <p className="done-stars" aria-label={`${doneInfo.stars} כוכבים`}>{'★'.repeat(doneInfo.stars)}{'☆'.repeat(3 - doneInfo.stars)}</p>
-                    <Paragraph>השגת {doneInfo.points} נקודות בשלב הזה ({correctCount} מתוך {questions.filter(q => q.type !== 'reflect').length} נכונות). סך הכול: {totalPoints} נקודות.</Paragraph>
-                    {doneInfo.newCostume && <Callout title="תלבושת חדשה נפתחה!" tone="success">קיבלת את {doneInfo.newCostume}. אפשר לראות אותה על הדמות במפה.</Callout>}
-                    {doneInfo.stars === 0 && <Paragraph>שווה לנסות שוב - בכל תשובה מופיע הסבר שעוזר להתקדם.</Paragraph>}
+                <Group label={`${pack.levels[level - 1].name} - 住讜祝 讛砖诇讘`} heading>
+                    <p className="done-stars" aria-label={`${doneInfo.stars} 讻讜讻讘讬诐`}>{'鈽?.repeat(doneInfo.stars)}{'鈽?.repeat(3 - doneInfo.stars)}</p>
+                    <Paragraph>讛砖讙转 {doneInfo.points} 谞拽讜讚讜转 讘砖诇讘 讛讝讛 ({correctCount} 诪转讜讱 {questions.filter(q => q.type !== 'reflect').length} 谞讻讜谞讜转). 住讱 讛讻讜诇: {totalPoints} 谞拽讜讚讜转.</Paragraph>
+                    {doneInfo.newCostume && <Callout title="转诇讘讜砖转 讞讚砖讛 谞驻转讞讛!" tone="success">拽讬讘诇转 讗转 {doneInfo.newCostume}. 讗驻砖专 诇专讗讜转 讗讜转讛 注诇 讛讚诪讜转 讘诪驻讛.</Callout>}
+                    {doneInfo.stars === 0 && <Paragraph>砖讜讜讛 诇谞住讜转 砖讜讘 - 讘讻诇 转砖讜讘讛 诪讜驻讬注 讛住讘专 砖注讜讝专 诇讛转拽讚诐.</Paragraph>}
                     <div className="done-actions">
                         {doneInfo.stars > 0 && level < pack.levels.length
-                            ? <button className="file-button" onClick={() => startLevel(level + 1)}>לשלב הבא</button>
+                            ? <button className="file-button" onClick={() => startLevel(level + 1)}>诇砖诇讘 讛讘讗</button>
                             : null}
-                        <button className="file-button is-compact" data-variant="secondary" onClick={() => setScreen('map')}>חזרה למפה</button>
+                        <button className="file-button is-compact" data-variant="secondary" onClick={() => setScreen('map')}>讞讝专讛 诇诪驻讛</button>
                     </div>
                 </Group>
             </>}
 
-            <Closing>דמו פרטי - ההתקדמות נשמרת רק במכשיר הזה. רוצים משחק מדף אחר? שולחים דף נוסף בצ'אט.</Closing>
+            <Closing>讚诪讜 驻专讟讬 - 讛讛转拽讚诪讜转 谞砖诪专转 专拽 讘诪讻砖讬专 讛讝讛. 专讜爪讬诐 诪砖讞拽 诪讚祝 讗讞专? 砖讜诇讞讬诐 讚祝 谞讜住祝 讘爪'讗讟.</Closing>
         </FileCard>
     </div>;
 }
