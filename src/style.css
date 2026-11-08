@@ -66,6 +66,37 @@ body { background: var(--ds-page); }
 .done-actions { display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
 .choice-button.is-chosen { border-color: var(--ds-teal, #73a89a); box-shadow: inset 0 0 0 1px var(--ds-teal, #73a89a); }
 
+.comparison-game h2 {font-size:22px;line-height:1.4}
+.comparison-game p {line-height:1.6}
+.comparison-bank {position:sticky;top:0;z-index:8;background:var(--ds-page,#fff);border:1px solid var(--ds-hairline,#ddd);border-radius:12px;padding:10px;margin:16px 0;box-shadow:0 3px 10px #0001}
+.comparison-tabs {display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.comparison-tabs button {font:inherit;font-size:13px;border:1px solid var(--ds-hairline,#ddd);background:var(--ds-raised,#eee);color:var(--ds-ink,#222);border-radius:8px;padding:8px;cursor:pointer}
+.comparison-tabs button.is-active {background:var(--ds-teal,#73a89a);color:white}
+.comparison-words {display:flex;flex-wrap:wrap;gap:7px;max-height:150px;overflow:auto;padding:2px}
+.table-word {font:inherit;font-size:14px;min-height:40px;touch-action:none;user-select:none;cursor:grab;background:var(--ds-raised,#eee);color:var(--ds-ink,#222);border:1px solid var(--ds-hairline,#ddd);border-radius:15px;padding:7px 10px}
+.table-word.is-selected {outline:2px solid var(--ds-teal,#73a89a)}
+.comparison-bank-hint {font-size:12px;margin:7px 0 0!important;min-height:20px}
+.comparison-grid-head,.comparison-grid-row {display:grid;grid-template-columns:1fr repeat(4,minmax(0,1.2fr));gap:1px;background:var(--ds-hairline,#ddd)}
+.comparison-grid {border:1px solid var(--ds-hairline,#ddd);border-radius:10px;overflow:hidden}
+.comparison-grid-head strong {padding:10px;font-size:13px;background:var(--ds-raised,#eee)}
+.comparison-grid-row h3 {font-size:14px;margin:0;padding:12px;background:var(--ds-raised,#eee);overflow-wrap:anywhere}
+.comparison-cell {padding:8px;background:var(--ds-page,#fff);font-size:14px;min-width:0}
+.comparison-drop {min-height:80px;border:1px dashed var(--ds-teal,#73a89a);border-radius:8px;padding:6px;display:flex;gap:5px;flex-wrap:wrap;align-content:flex-start;cursor:pointer}
+.drop-label {font-size:12px;color:var(--ds-ink-2,#666)}
+.placed-word {display:inline-flex;gap:4px;align-items:center;background:var(--ds-raised,#eee);padding:4px 6px;border-radius:7px;overflow-wrap:anywhere;max-width:100%;line-height:1.4}
+.remove-table-word {font:inherit;border:0;background:transparent;color:inherit;cursor:pointer;min-width:24px;min-height:28px}
+.comparison-cell.is-unavailable {background:var(--ds-raised,#eee);color:var(--ds-ink-2,#666)}
+.comparison-cell.is-correct {background:#e8f3ef}
+.comparison-cell.is-wrong {background:#fff0ed}
+.comparison-mobile-label {display:none}
+.table-cell-feedback {font-size:12px;margin:6px 0!important}
+.table-result {padding:12px;border-radius:8px;background:var(--ds-raised,#eee)}
+.table-result.is-correct {background:#e8f3ef}
+.table-drag-ghost {position:fixed;transform:translate(-50%,-120%);pointer-events:none;z-index:1000;padding:10px 14px;max-width:240px;border-radius:12px;background:#315d51;color:white;box-shadow:0 4px 16px #0003;font-size:14px}
+@media(max-width:760px){.comparison-grid-head{display:none}.comparison-grid-row{display:block;background:transparent;border-bottom:3px solid var(--ds-hairline,#ddd)}.comparison-grid-row h3{font-size:18px;padding:14px}.comparison-cell{border-top:1px solid var(--ds-hairline,#ddd);padding:12px}.comparison-mobile-label{display:block;font-weight:600;margin-bottom:6px}.comparison-drop{min-height:58px}.comparison-bank{padding:8px}.comparison-words{max-height:130px}.comparison-tabs button{font-size:12px;padding:7px}.comparison-game h2{font-size:20px}}
+
+.comparison-row-source {display:block;font-size:11px;font-weight:400;line-height:1.5;margin-top:8px}.comparison-row-source a {display:block;color:inherit;text-decoration:underline}
+
 /* ----- base layout + ui kit (src/ui.tsx) ----- */
 :root {
     --ds-page: #faf7f5;
@@ -113,3 +144,4 @@ body {
 .file-button:disabled { opacity: 0.5; cursor: not-allowed; }
 .file-button.is-compact { width: auto; min-height: 40px; padding: 8px 18px; font-size: 14px; }
 .file-button[data-variant="secondary"] { background: var(--ds-raised); color: var(--ds-ink); border: 1px solid var(--ds-hairline); }
+.comparison-drop,.table-word,.placed-word {-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}

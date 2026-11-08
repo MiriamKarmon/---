@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Callout, Caption, Closing, FileCard, Group, Header, Paragraph, Photos } from './ui';
 import { vayikraPack as pack, TYPE_LABELS, qPoints, type Q } from './packs';
 import hero from './photos/mishkan-hero.png';
+import { ComparisonGame, type ComparisonId } from './comparisons';
 
 function shuffle<T>(arr: T[]): T[] {
     const out = [...arr];
@@ -19,7 +20,7 @@ const COSTUMES = [
 ];
 function unlockedCostumes(points: number) { return COSTUMES.filter(c => points >= c.points); }
 
-type Screen = 'home' | 'map' | 'level' | 'done';
+type Screen = 'home' | 'map' | 'level' | 'done' | 'comparison';
 
 export function App() {
     const [totalPoints, setTotalPoints] = useState<number>(0);
@@ -27,6 +28,8 @@ export function App() {
 
     const [screen, setScreen] = useState<Screen>('home');
     const [level, setLevel] = useState(1);
+    const [comparison, setComparison] = useState<ComparisonId>('offerings');
+    const [session, setSession] = useState(0);
     const [questions, setQuestions] = useState<Q[]>([]);
     const [qIndex, setQIndex] = useState(0);
     const [picked, setPicked] = useState<string | null>(null);
@@ -40,6 +43,7 @@ export function App() {
     const [doneInfo, setDoneInfo] = useState<{ stars: number; points: number; newCostume: string | null } | null>(null);
 
     const resetGame = () => {
+        setSession(x => x + 1);
         setTotalPoints(0);
         setStars({});
         setScreen('home');
@@ -163,7 +167,7 @@ export function App() {
                 <Photos label={pack.worldName} items={[{ src: hero, alt: 'איור של שביל אבנים במדבר המוביל אל המשכן' }]} />
                 <Caption>איור להמחשת האווירה בלבד.</Caption>
                 <Group label={pack.worldName} heading>
-                    <Paragraph>{pack.levels.length} שלבים עם 15 שאלות בכל שלב, שמכסות את כל שאלות הדף: עולה ומנחה, שלמים, חטאת וסוגיה, עולה ויורד, האשמות ושלבי ההקרבה - כדי להכיר את ההבדלים בין כל הקרבנות.</Paragraph>
+                    <Paragraph>{pack.levels.length} שלבים עם לפחות 15 שאלות בכל שלב, שמכסות את כל שאלות הדף: עולה ומנחה, שלמים, חטאת וסוגיה, עולה ויורד, האשמות ושלבי ההקרבה - כדי להכיר את ההבדלים בין כל הקרבנות.</Paragraph>
                     <button className="file-button" onClick={() => setScreen('map')}>מתחילים לשחק</button>
 
                 </Group>
@@ -193,9 +197,17 @@ export function App() {
                             </button>;
                         })}
                     </div>
+                    <h3>משחקי טבלאות עם מחסן מילים</h3>
+                    <button className="file-button" onClick={() => {setComparison('offerings');setScreen('comparison');}}>השוואה בין כל הקרבנות</button>
+                    <button className="file-button" onClick={() => {setComparison('sin');setScreen('comparison');}}>השוואה בין סוגי החטאת</button>
                     <button className="file-button is-compact" data-variant="secondary" onClick={() => setScreen('home')}>חזרה</button>
                 </Group>
             </>}
+
+            {screen === 'comparison' && <Group label="תרגול טבלאות">
+                <ComparisonGame key={`${session}:${comparison}`} id={comparison} />
+                <button className="file-button is-compact" data-variant="secondary" onClick={() => setScreen('map')}>חזרה למפה</button>
+            </Group>}
 
             {screen === 'level' && current && <>
                 <Group label={`${pack.levels[level - 1].name} - שאלה ${qIndex + 1} מתוך ${questions.length}`} heading>
